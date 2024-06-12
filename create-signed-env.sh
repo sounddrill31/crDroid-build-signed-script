@@ -29,6 +29,16 @@ clear
 
 # Create Key
 echo "Press ENTER TWICE to skip password (about 10-15 enter hits total). Cannot use a password for inline signing!"
+if [ -d "~/.android-certs" ]; then
+  read -p "Leftovers found! Remove? (y/n) " -n 1 -r
+  echo    # (optional) move to a new line
+  if [[ $REPLY =~ ^[Yy]$ ]] || [[ $1 == "--quiet" ]]; then
+    echo "Deleting..."
+    rm -rf ~/.android-certs
+  else 
+    echo "Exiting!"
+    exit 1
+fi
 mkdir ~/.android-certs
 
 for x in releasekey platform shared media networkstack testkey bluetooth sdk_sandbox verifiedboot; do \
