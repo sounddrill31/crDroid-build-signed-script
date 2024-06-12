@@ -58,11 +58,7 @@ if [ "${DCDEVSPACE}" == "1" ]; then
     echo "You entered: $key_path"
     crave ssh -- "mkdir -p $key_path"
     crave push vendor/lineage-priv/keys -d /tmp/src/android/$key_path
-    if [ ! $? == 0 ]; then
-        echo "Pushed to $key_path successfully"
-    else
-        echo "Push failed!"
-    fi
+    echo "Pushed to $key_path"
 
 else
 
