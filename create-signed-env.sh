@@ -37,6 +37,19 @@ done
 
 
 ## Create vendor for keys
+if [ -d "vendor/lineage-priv/keys" ]; then
+  read -p "Keys already found! Remove? (y/n) " -n 1 -r
+  echo    # (optional) move to a new line
+  if [[ $REPLY =~ ^[Yy]$ ]] || [[ $1 == "--quiet" ]]; then
+    echo "Deleting..."
+    rm -rf vendor/lineage-priv
+  else 
+    echo "Exiting!"
+    exit 1
+else
+  echo "Keys not found! Generating..."
+fi
+
 mkdir vendor/lineage-priv
 mv ~/.android-certs vendor/lineage-priv/keys
 echo "PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/lineage-priv/keys/releasekey" > vendor/lineage-priv/keys/keys.mk
@@ -53,7 +66,7 @@ EOF
 
 if [ "${DCDEVSPACE}" == "1" ]; then
     echo "Crave Devspace CLI Detected! Would you like to push to build storage?"
-    read -p "Enter relative path (default: vendor/lineage-priv/keys): " key_path
+    read -p "Enter relative path (default: vendor/lineage-priv): " key_path
     key_path=${key_path:-"vendor/lineage-priv/keys"}
     echo "You entered: $key_path"
     crave ssh -- "mkdir -p $key_path"
