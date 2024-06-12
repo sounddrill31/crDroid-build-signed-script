@@ -51,6 +51,22 @@ filegroup(
 )
 EOF
 
+if [ "${DCDEVSPACE}" == "1" ]; then
+    echo "Crave Devspace CLI Detected! Would you like to push to build storage?"
+    read -p "Enter relative path (default: vendor/lineage-priv/keys): " key_path
+    key_path=${key_path:-"vendor/lineage-priv/keys"}
+    echo "You entered: $key_path"
+    crave push $key_path -d /tmp/src/android/$key_path
+    if [ ! $? == 0 ]; then
+        echo "Pushed to $key_path successfully"
+    else
+        echo "Push failed!"
+    fi
+
+else
+
 echo "Done! Now build as usual. If builds aren't being signed, add '-include vendor/lineage-priv/keys/keys.mk' to your device mk file"
 echo "Make copies of your vendor/lineage-priv folder as it contains your keys!"
 sleep 3
+
+fi
