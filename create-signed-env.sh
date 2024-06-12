@@ -78,8 +78,7 @@ EOF
 
 if [ "${DCDEVSPACE}" == "1" ]; then
     echo "Crave Devspace CLI Detected! Would you like to push to build storage?"
-    read -p "Enter relative path (default: vendor/lineage-priv): " key_path
-    key_path=${key_path:-"vendor/lineage-priv/keys"}
+    read -p "Enter relative path 'vendor/lineage-priv': " key_path
     echo "You entered: $key_path"
     crave ssh -- "mkdir -p $key_path"
     crave push vendor/lineage-priv/keys -d /tmp/src/android/$key_path
