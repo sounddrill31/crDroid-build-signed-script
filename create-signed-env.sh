@@ -38,6 +38,7 @@ if [ -d "~/.android-certs" ]; then
   else 
     echo "Exiting!"
     exit 1
+  fi
 fi
 mkdir ~/.android-certs
 
@@ -56,6 +57,7 @@ if [ -d "vendor/lineage-priv/keys" ]; then
   else 
     echo "Exiting!"
     exit 1
+  fi
 else
   echo "Keys not found! Generating..."
 fi
