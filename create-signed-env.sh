@@ -56,6 +56,7 @@ if [ "${DCDEVSPACE}" == "1" ]; then
     read -p "Enter relative path (default: vendor/lineage-priv/keys): " key_path
     key_path=${key_path:-"vendor/lineage-priv/keys"}
     echo "You entered: $key_path"
+    crave ssh -- "mkdir -p $key_path"
     crave push vendor/lineage-priv/keys -d /tmp/src/android/$key_path
     if [ ! $? == 0 ]; then
         echo "Pushed to $key_path successfully"
